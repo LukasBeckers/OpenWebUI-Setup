@@ -14,11 +14,9 @@ services:
   ollama:
     image: ollama/ollama
     restart: always
-    ports: 
-      - "11434:11434"
     environment:
       OLLAMA_MODELS: "/ollama_models"
-      NVIDIA_VISIBLE_DEVICES: "1"
+      CUDA_VISIBLE_DEVICES: "1"
     volumes:
       - "/mnt/Lukas/ollama/ollama:/root/.ollama"
       - "/mnt/Lukas/ollama/ollama_models:/ollama_models"
@@ -33,12 +31,10 @@ services:
   automatic1111:
     image: goolashe/automatic1111-sd-webui:latest
     restart: always
-    ports:
-      - "7860:7860"
     environment: 
       USE_XFORMERS: "true"
       CLI_ARGS: "--api --ckpt-dir /automatic1111_data/checkpoints --hypernetwork-dir /automatic1111_data/hypernetworks --embeddings-dir /automatic1111_data/embeddings --lora-dir /automatic1111_data/loras"
-      NVIDIA_VISIBLE_DEVICES: "1"
+      CUDA_VISIBLE_DEVICES: "1"
     volumes:
       - "/mnt/Lukas/ollama/automatic1111_data:/automatic1111_data"
     deploy:
